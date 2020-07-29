@@ -99,4 +99,26 @@
     ```sql
     select student_number,student_name from student;
     select student_number,class_number,score from score;
+    
+    select student_name,class_number,score from student,score where student.student_number = score.student_number;
     ```
+15. 查询所有学生的student_number,class_number和score列
+
+    ```sql
+    select class_number,class_name from course;
+    select class_number,student_number,score from score;
+    
+    select student_number,class_name,score from course,score where course.class_number=score.class_number;
+    ```
+    等号相当于是把两个表信息合并
+16. 查询所有学生的student_name,class_name和score列
+
+    这里我们需要筛选的三列是来自三张不同的表
+    - student_name->student
+    - class_name->course
+    - score->score
+    ```sql
+    select student_name,class_name,score from student,course,score where student.student_number=score.student_number and course.class_number=score.class_number;
+    ```
+    通过这几道题，我们可以发现格式基本上就是合并多表，并且把每个表的联系导入判断即可。
+17. 
