@@ -81,3 +81,48 @@
     ```sql
     UPDATE <表名> SET 字段1=值1, 字段2=值2, ... WHERE ...;
     ```
+10. 删
+
+    使用的关键字：delete
+    ```sql
+    DELETE FROM <表名> WHERE ...;
+    ```
+    和上面的类似
+11. 插入或替换
+
+    如果我们希望插入一条新记录（INSERT），但如果记录已经存在，就先删除原记录，再插入新记录。此时，可以使用REPLACE语句，这样就不必先查询，再决定是否先删除再插入：
+    ```sql
+    REPLACE INTO students (id, class_id, name, gender, score) VALUES (1, 1, '小明', 'F', 99);
+    ```
+    若id=1的记录不存在，REPLACE语句将插入新记录，否则，当前id=1的记录将被删除，然后再插入新记录。
+12. 插入或忽略
+
+    如果我们希望插入一条新记录（INSERT），但如果记录已经存在，就啥事也不干直接忽略，此时，可以使用INSERT IGNORE INTO ...语句：
+    ```sql
+    INSERT IGNORE INTO students (id, class_id, name, gender, score) VALUES (1, 1, '小明', 'F', 99);
+    ```
+    若id=1的记录不存在，INSERT语句将插入新记录，否则，不执行任何操作。
+13. 快照
+    如果想要对一个表进行快照，即复制一份当前表的数据到一个新表，可以结合CREATE TABLE和SELECT：
+    ```sql
+    -- 对class_id=1的记录进行快照，并存储为新表students_of_class1:
+    CREATE TABLE students_of_class1 SELECT * FROM students WHERE class_id=1;
+    ```
+    新创建的表结构和SELECT使用的表结构完全一致。
+14. 事务
+
+    把多条语句作为一个整体进行操作的功能称作数据库事务。数据库事务可以确保该事务范围内所有的操作全部成功或者全部失败。
+
+    数据库事务具有ACID特性：
+    - A：Atomic，原子性，将所有SQL作为原子工作单元执行，要么全部执行，要么全部不执行；
+    - C：Consistent，一致性，事务完成后，所有数据的状态都是一致的，即A账户只要减去了100，B账户则必定加上了100；
+    - I：Isolation，隔离性，如果有多个事务并发执行，每个事务作出的修改必须与其他事务隔离；
+    - D：Duration，持久性，即事务完成后，对数据库数据的修改被持久化存储。
+    1. 如何开辟一个事务？
+        1. 显式事务
+        ```sql
+        BEGIN;
+        ...这里填充需要执行的指令
+        COMMIT;
+        ```
+        2.
