@@ -121,4 +121,6 @@
     select student_name,class_name,score from student,course,score where student.student_number=score.student_number and course.class_number=score.class_number;
     ```
     通过这几道题，我们可以发现格式基本上就是合并多表，并且把每个表的联系导入判断即可。
-17. 
+17. 查询95031班学生每门课的平均分
+
+    
